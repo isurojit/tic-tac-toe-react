@@ -1,26 +1,39 @@
 import React, { useState } from "react";
 
-const Player = ({ name, symbol }) => {
+const Player = ({ initialName, symbol }) => {
+  const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
-  const editBtnClickHandler = () => {
+  //functions
+  const editBtnClickHandler = (e) => {
+    e.preventDefault();
     setIsEditing((editing) => !editing);
   };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setPlayerName(e.target.value);
+  };
 
-  let playerName = <span className="player-name">{name}</span>;
-  let btnCaption = "Edit";
+  //Values
+  let editablePlayerName = <span className="player-name">{playerName}</span>;
 
+  //logic
   if (isEditing) {
-    playerName = <input type="text" required value={name} />;
-    btnCaption = "Save";
+    editablePlayerName = (
+      <input type="text" required value={playerName} onChange={handleChange} />
+    );
   }
+
+  //jsx
   return (
     <li>
       <span className="player">
-        {playerName}
+        {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
       </span>
-      <button onClick={editBtnClickHandler}>{btnCaption}</button>
+      <button onClick={editBtnClickHandler}>
+        {isEditing ? "Save" : "Edit"}
+      </button>
     </li>
   );
 };
