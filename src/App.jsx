@@ -12,7 +12,7 @@ const App = () => {
 
   const activePlayer = DERIVED_ACTIVE_PLAYER(gameTurns);
 
-  let gameBoard = INITIAL_GAME_BOARD;
+  let gameBoard = [...INITIAL_GAME_BOARD.map((array) => [...array])];
 
   for (const turn of gameTurns) {
     const { square, player } = turn;
@@ -20,6 +20,10 @@ const App = () => {
 
     gameBoard[row][col] = player;
   }
+
+  const handleReset = () => {
+    setGameTurns([]);
+  };
 
   //Winning combination logic
   let winner;
@@ -67,7 +71,9 @@ const App = () => {
             isActive={activePlayer === "O"}
           />
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner} />}
+        {(winner || hasDraw) && (
+          <GameOver winner={winner} onRestart={handleReset} />
+        )}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
