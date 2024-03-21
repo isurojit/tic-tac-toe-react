@@ -9,6 +9,10 @@ import GameOver from "./components/GameOver.jsx";
 
 const App = () => {
   const [gameTurns, setGameTurns] = useState([]);
+  const [players, setPlayers] = useState({
+    X: "Player 1",
+    O: "Player 2",
+  });
 
   const activePlayer = DERIVED_ACTIVE_PLAYER(gameTurns);
 
@@ -21,8 +25,18 @@ const App = () => {
     gameBoard[row][col] = player;
   }
 
+  // functions
   const handleReset = () => {
     setGameTurns([]);
+  };
+
+  const handlePlayerNameChage = (symbol, newName) => {
+    setPlayers((pre) => {
+      return {
+        ...pre,
+        [symbol]: newName,
+      };
+    });
   };
 
   //Winning combination logic
@@ -40,7 +54,7 @@ const App = () => {
       firstSquareSymbol === secondSquareSymbol &&
       firstSquareSymbol === thirdSquareSymbol
     ) {
-      winner = firstSquareSymbol;
+      winner = players[firstSquareSymbol];
     }
   }
   const hasDraw = gameTurns.length === 9 && !winner;
@@ -64,11 +78,13 @@ const App = () => {
             initialName="Player 1"
             symbol="X"
             isActive={activePlayer === "X"}
+            onChangeName={handlePlayerNameChage}
           />
           <Player
             initialName="Player 2"
             symbol="O"
             isActive={activePlayer === "O"}
+            onChangeName={handlePlayerNameChage}
           />
         </ol>
         {(winner || hasDraw) && (
