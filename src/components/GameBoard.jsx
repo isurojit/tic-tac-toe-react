@@ -6,19 +6,6 @@ const initialGameBoard = [
   [null, null, null],
 ];
 const GameBoard = ({ onSelectSquare, turns }) => {
-  // const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
-  // const handleSelectSquare = (rowIndex, colIndex) => {
-  //   setGameBoard((prevGameBoard) => {
-  //     const updateBoard = [
-  //       ...prevGameBoard.map((innerArray) => [...innerArray]),
-  //     ];
-  //     updateBoard[rowIndex][colIndex] = activPlayerSymbol;
-  //     return updateBoard;
-  //   });
-  //   onSelectSquare();
-  // };
-
   let gameBoard = initialGameBoard;
 
   for (const turn of turns) {
