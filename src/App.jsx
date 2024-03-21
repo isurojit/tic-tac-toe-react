@@ -5,6 +5,7 @@ import Log from "./components/Log";
 import DERIVED_ACTIVE_PLAYER from "./Helper/DERIVED_ACTIVE_PLAYER.js";
 import WINNING_COMBINATIONS from "./Helper/WINNING_COMBINATIONS.js";
 import INITIAL_GAME_BOARD from "./Helper/INITIAL_GAME_BOARD.js";
+import GameOver from "./components/GameOver.jsx";
 
 const App = () => {
   const [gameTurns, setGameTurns] = useState([]);
@@ -38,7 +39,7 @@ const App = () => {
       winner = firstSquareSymbol;
     }
   }
-
+  const hasDraw = gameTurns.length === 9 && !winner;
   const handleSelectSquare = (rowIndex, colIndex) => {
     setGameTurns((pre) => {
       const currentPlayer = DERIVED_ACTIVE_PLAYER(pre);
@@ -66,7 +67,7 @@ const App = () => {
             isActive={activePlayer === "O"}
           />
         </ol>
-        {winner && <p>You won, {winner}!</p>}
+        {(winner || hasDraw) && <GameOver winner={winner} />}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
