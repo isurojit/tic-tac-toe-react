@@ -75,13 +75,13 @@ const App = () => {
         {/* PLAYERS */}
         <ol id="players" className="highlight-player">
           <Player
-            initialName="Player 1"
+            initialName={players.X}
             symbol="X"
             isActive={activePlayer === "X"}
             onChangeName={handlePlayerNameChage}
           />
           <Player
-            initialName="Player 2"
+            initialName={players.O}
             symbol="O"
             isActive={activePlayer === "O"}
             onChangeName={handlePlayerNameChage}
